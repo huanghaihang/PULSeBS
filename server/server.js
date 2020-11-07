@@ -1,9 +1,17 @@
 // Import dependencies
 const express = require("express");
+const morgan = require("morgan"); // logging middleware
 const bodyParser = require("body-parser");
 const compression = require("compression");
 const cors = require("cors");
 const helmet = require("helmet");
+const jwt = require("express-jwt");
+const cookieParser = require("cookie-parser");
+require("dotenv").config();
+const jwtSecret = process.env.JWT_SECRET;
+// Import routes
+const authRouter = require("./routes/auth-route");
+const userRouter = require("./routes/user-route");
 
 // Set default port for express app
 const PORT = process.env.PORT || 4001;
@@ -18,6 +26,28 @@ app.use(helmet());
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookieParser());
+// Set-up logging
+app.use(morgan("tiny"));
+
+// Routes
+app.use("/api/auth", authRouter);
+// For the rest of the code, all APIs require authentication
+app.use(
+  jwt({
+    secret: jwtSecret,
+    algorithms: ["sha1", "RS256", "HS256"],
+    getToken: (req) => req.cookies.token,
+  })
+);
+app.use("/api/user", userRouter);
+
+// To return a better object in case of errors
+app.use(function (err, req, res, next) {
+  if (err.name === "UnauthorizedError") {
+    res.status(401).json(authErrorObj);
+  }
+});
 
 // Implement 500 error route
 app.use(function (err, req, res, next) {

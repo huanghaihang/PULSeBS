@@ -51,7 +51,7 @@ initTable("user", (table) => {
 
   table.string("surname").notNullable();
 
-  table.string("password").notNullable();
+  table.string("password_hash").notNullable();
 
   table.string("email").notNullable();
 
