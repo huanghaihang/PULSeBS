@@ -14,8 +14,8 @@ exports.get = async (req, res) => {
     .select("id", "name", "surname", "email", "role")
     .from("user")
     .where("id", userId)
-    .then((userDetails) => {
-      res.json(userDetails);
+    .then((queryResults) => {
+      res.json(queryResults[0]);
     })
     .catch((err) => {
       res.json({
@@ -28,7 +28,7 @@ exports.login = async (req, res) => {
   const { email, password } = req.body;
   console.log(password);
   knex
-    .select("id", "email", "password_hash", "role")
+    .select("id", "name", "surname", "email", "password_hash", "role")
     .from("user")
     .where("email", email)
     .then((queryResults) => {
@@ -46,6 +46,8 @@ exports.login = async (req, res) => {
 
           res.json({
             id: userDetails.id,
+            name: userDetails.name,
+            surname: userDetails.surname,
             email: userDetails.email,
             role: userDetails.role,
           });
