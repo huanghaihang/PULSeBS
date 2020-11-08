@@ -45,7 +45,7 @@ app.use("/api/user", userRouter);
 // To return a better object in case of errors
 app.use(function (err, req, res, next) {
   if (err.name === "UnauthorizedError") {
-    res.status(401).json(authErrorObj);
+    res.status(401).json({ message: "Authorization error" });
   }
 });
 

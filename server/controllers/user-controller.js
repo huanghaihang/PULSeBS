@@ -35,7 +35,7 @@ exports.login = async (req, res) => {
       if (queryResults.length == 1) {
         userDetails = queryResults[0];
         if (bcrypt.compareSync(password, userDetails.password_hash)) {
-          const token = jsonwebtoken.sign({ user: userDetails.id }, jwtSecret, {
+          const token = jsonwebtoken.sign({ id: userDetails.id }, jwtSecret, {
             expiresIn: expireTime,
           });
           res.cookie("token", token, {
