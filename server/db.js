@@ -94,5 +94,13 @@ initTable("lecture_booking", (table) => {
   table.datetime("booked_at").notNullable();
 });
 
+initTable("course_available_student", (table) => {
+  table.integer("course_id").notNullable();
+  table.foreign("course_id").references("course.id");
+
+  table.integer("student_id").notNullable();
+  table.foreign("student_id").references("user.id");
+});
+
 // Export the database
 module.exports = knex;
