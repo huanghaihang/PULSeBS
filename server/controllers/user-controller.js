@@ -32,26 +32,27 @@ exports.login = async (req, res) => {
     .from("user")
     .where("email", email)
     .then((queryResults) => {
-      if (queryResults.length == 1) {
-        userDetails = queryResults[0];
-        if (bcrypt.compareSync(password, userDetails.password_hash)) {
-          const token = jsonwebtoken.sign({ id: userDetails.id }, jwtSecret, {
-            expiresIn: expireTime,
-          });
-          res.cookie("token", token, {
-            httpOnly: true,
-            sameSite: true,
-            maxAge: 1000 * expireTime,
-          });
+      if (
+        queryResults.length == 1 &&
+        bcrypt.compareSync(password, queryResults[0].password_hash)
+      ) {
+        const userDetails = queryResults[0];
+        const token = jsonwebtoken.sign({ id: userDetails.id }, jwtSecret, {
+          expiresIn: expireTime,
+        });
+        res.cookie("token", token, {
+          httpOnly: true,
+          sameSite: true,
+          maxAge: 1000 * expireTime,
+        });
 
-          res.json({
-            id: userDetails.id,
-            name: userDetails.name,
-            surname: userDetails.surname,
-            email: userDetails.email,
-            role: userDetails.role,
-          });
-        }
+        res.json({
+          id: userDetails.id,
+          name: userDetails.name,
+          surname: userDetails.surname,
+          email: userDetails.email,
+          role: userDetails.role,
+        });
       } else {
         throw new Error("Invalid credentials.");
       }
