@@ -4,9 +4,11 @@ const knex = require("./../db");
 exports.getScheduledLectures = async (req, res) => {
   const courseId = req.params.courseid;
   knex
-    .select("id", "name", "course", "lecturer", "start", "end", "capacity")
-    .from("lecture")
-    .where("course", courseId)
+    .select({id: "l.id"}, {name: "l.name"}, {course: "l.course"}, {start: "l.start"}, {end: "l.end"}, 
+      {capacity: "l.capacity"}, {lecturer_id: "u.id"}, {lecturer_name: "u.name"}, {lecturer_surname: "u.surname"})
+    .from({l: "lecture"})
+    .join({u: "user"}, "l.lecturer", "=", "u.id")
+    .where("l.course", courseId)
     .then((queryResults) => {
       res.json(queryResults);
     })
