@@ -38,7 +38,7 @@
     "start-front": "react-scripts start",
     "start": "concurrently \"npm run start-server\" \"npm run start-front\" --kill-others --kill-others-on-fail",
     "test": "cross-env NODE_ENV=testing mocha",
-    "test-sonar-report": "test --reporter mocha-sonarqube-reporter --reporter-options output=xunit.xml"
+    "test-sonar-report": "cross-env NODE_ENV=testing mocha --reporter mocha-sonarqube-reporter --reporter-options output=xunit.xml"
   },
   "dependencies": {
     "axios": "0.19.2",
@@ -75,6 +75,8 @@
     "nodemon": "2.0.3",
     "react-scripts": "3.4.1",
     "sqlite3": "4.1.1",
+    "superagent": "^6.1.0",
+    "supertest": "^6.0.1",
     "typescript": "3.8.3"
   }
 }
