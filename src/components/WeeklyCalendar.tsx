@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -8,6 +8,7 @@ class Calendarweek extends React.Component {
   constructor(props) {
     super(props);
   }
+
   render() {
     return (
       <FullCalendar
@@ -20,9 +21,10 @@ class Calendarweek extends React.Component {
           right: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        editable={true}
+        editable={false}
         events={this.props.Items}
-        eventLimit={true}
+        eventContent={this.props.renderEventContent}
+        eventLimit={false}
       />
     );
   }

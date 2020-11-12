@@ -13,6 +13,9 @@ import "./styles/styles.css";
 const rootElement = document.getElementById("root");
 
 // Render App component in the DOM
-render(  <Router>
+render(
+  <Router>
     <App />
-  </Router>, rootElement);
+  </Router>,
+  rootElement
+);

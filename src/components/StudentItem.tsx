@@ -10,13 +10,13 @@ const studentItem = (props) => {
         <div className="container">
           <div className="row">
             <div className="col-lg-4">
-              <label>{student.id}</label>
-            </div>
-            <div className="col-lg-4">
               <label>{student.name}</label>
             </div>
             <div className="col-lg-4">
-              <label>{student.surename}</label>
+              <label>{student.surname}</label>
+            </div>
+            <div className="col-lg-4">
+              <label>{student.email}</label>
             </div>
           </div>
         </div>

@@ -11,9 +11,7 @@ const courseItem = (props) => {
         <Card.Header>{course.name}</Card.Header>
         <Card.Body>
           <Card.Title> Course ID: {course.id} </Card.Title>
-          <Card.Text>
-            Capacity is <b>{course.capacity}</b>.
-          </Card.Text>
+          <Card.Text>Course Description.</Card.Text>
           <Button variant="primary" onClick={loadCourseData}>
             Select the Course
           </Button>
