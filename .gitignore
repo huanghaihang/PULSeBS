@@ -52,3 +52,11 @@ Thumbs.db
 *.mov
 *.wmv
 
+src/components/LoginPage.tsx
+src/components/app.tsx
+*.tsx
+src/components/app.tsx
+src/components/app.tsx
+server/routes/user-route.js
+src/components/app.tsx
+*.tsx
